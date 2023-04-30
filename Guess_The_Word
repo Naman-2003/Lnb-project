@@ -1,0 +1,37 @@
+public class GuessWord extends GuessLogic{
+    public static void main(String[] args) {
+     new  GuessLogic();
+    }
+}
+//Logic of the GameBASE
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class GuessLogic
+{
+   static String []Movies={"PATHAN", "3 IDIOTS", "JHONWICK", "FAMILY MAN", "MIRZAPUR", "MONEYHEIST"};
+   static String gen_word(){
+        Random random = new Random();
+        int index = random.nextInt(Movies.length);
+
+        return Movies[index];
+    }
+
+
+    static void guessword(){
+       Scanner sc = new Scanner(System.in);
+       String movie  = gen_word();
+       System.out.println("Guess the movie:"+movie.length()+"Words");
+       String guess = sc.nextLine();
+
+
+       if(guess.equalsIgnoreCase(movie)){
+           System.out.println("Congratulation you WON !!");
+
+       }
+       else{
+           System.out.println("YOU LOOSE");
+       }
+    }
+}
