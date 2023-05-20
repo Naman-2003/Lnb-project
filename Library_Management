@@ -7,13 +7,13 @@ public class Library_Management {
         Scanner sc = new Scanner(System.in);
         ArrayList <String> returned = new ArrayList<>();
         ArrayList <String> books = new ArrayList<>();
-        books.add("PHYSICS");
-        books.add("CHEMISTRY");
-        books.add("MATHEMATICS");
-        books.add("BIOLOGY");
-        books.add("ZOLOGY");
-        books.add("ECONOMICS");
-        books.add("ACCOUNTS");
+        books.add("The Art of War, by Sun Tzu");
+        books.add("How to Win Friends & Influence People, by Dale Carnegie");
+        books.add("Think and Grow Rich, by Napoleon Hill");
+        books.add("Don’t Sweat the Small Stuff and Its All Small Stuff, by Richard Carlson");
+        books.add(" The Magic of Thinking Big, by David J. Schwartz");
+        books.add("Relentless: From Good to Great to Unstoppable, by Tim S. Grover");
+        books.add(" The Power of Boundless Compassion, by Gregory Boyle");
 
         while (true){
             System.out.println("Welcome");
@@ -45,7 +45,9 @@ public class Library_Management {
                 System.out.println("Book returned:"+returned.get(returnedi-1));
                 books.add(returned.get(returnedi-1));
                 returned.remove(returnedi-1);
-            }else if(a ==3){
+            }else if(a ==3)
+            {
+                System.out.println("THANKS  QUOTE FOR YOU: Coding like poetry should be short and concise. ― Santosh Kalwar");
                 break;
             }}
 
