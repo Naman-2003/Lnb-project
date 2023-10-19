@@ -1,0 +1,115 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+public class SequentialStudentInfoGUI {
+    public static void main(String[] args) {
+        // Create the main frame
+        JFrame frame = new JFrame("Student Information Form");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300); // Set the frame size
+
+        // Create a panel to hold the components
+        JPanel panel = new JPanel() {
+            private Image backgroundImage;
+
+            {
+                try {
+                    backgroundImage = ImageIO.read(new File("C:\\WALLPAPER\\FFFIMHG.jpg")); // Set the path to your image
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Sequential layout
+
+        // Create labels and text fields for each information field with specified background colors
+        JTextField nameField = createField(panel, "Name:", Color.LIGHT_GRAY, Color.WHITE, 10, 1);
+        JTextField branchField = createField(panel, "Branch:", Color.CYAN, Color.WHITE, 10, 1);
+        JTextField rollNoField = createField(panel, "Roll No:", Color.ORANGE, Color.WHITE, 10, 1);
+        JTextField dobField = createField(panel, "Date of Birth:", Color.PINK, Color.WHITE, 10, 1);
+        JTextField idField = createField(panel, "ID:", Color.GREEN, Color.WHITE, 10, 1);
+
+        // Create a button to submit the information
+        JButton submitButton = new JButton("Submit");
+        submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(submitButton);
+
+        // Add the panel to the frame
+        frame.setContentPane(panel);
+
+        // Make the frame visible
+        frame.setVisible(true);
+
+        // ActionListener for the submit button
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the values from the text fields
+                String name = nameField.getText();
+                String branch = branchField.getText();
+                String rollNo = rollNoField.getText();
+                String dob = dobField.getText();
+                String id = idField.getText();
+
+                // Display the information (you can modify this part)
+                JOptionPane.showMessageDialog(frame, "Name: " + name + "\nBranch: " + branch + "\nRoll No: " + rollNo + "\nDOB: " + dob + "\nID: " + id);
+            }
+        });
+
+        // Add KeyListeners to text fields for Enter key handling
+        addEnterKeyListeners(nameField, branchField);
+        addEnterKeyListeners(branchField, rollNoField);
+        addEnterKeyListeners(rollNoField, dobField);
+        addEnterKeyListeners(dobField, idField);
+        idField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Perform the submit action
+                    submitButton.doClick();
+                }
+            }
+        });
+    }
+
+    private static JTextField createField(JPanel panel, String labelText, Color labelBgColor, Color textFieldBgColor, int textFieldWidth, int textFieldHeight) {
+        JLabel label = new JLabel(labelText);
+        label.setOpaque(true);
+        label.setBackground(labelBgColor);
+
+        JTextField textField = new JTextField(textFieldWidth);
+        textField.setBackground(textFieldBgColor);
+        textField.setPreferredSize(new Dimension(textFieldWidth * 20, textFieldHeight * 20));
+
+        panel.add(label);
+        panel.add(textField);
+
+        return textField;
+    }
+
+    private static void addEnterKeyListeners(JTextField currentField, JTextField nextField) {
+        currentField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    nextField.requestFocus();
+                }
+            }
+        });
+    }
+}
